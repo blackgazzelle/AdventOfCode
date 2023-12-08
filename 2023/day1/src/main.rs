@@ -59,8 +59,9 @@ fn chall_2(lines: &Vec<String>) -> u32 {
     for line in lines {
         let mut values: HashMap<usize, &str> = HashMap::new();
         for word in nums_words.keys() {
-            if let Some(index) = line.find(word) {
-                values.insert(index, word);
+            let sub_strs: Vec<(usize, &str)> = line.match_indices(word).collect();
+            for strs in sub_strs {
+                values.insert(strs.0, strs.1);
             }
         }
         let min: u32 = *nums_words
@@ -69,14 +70,6 @@ fn chall_2(lines: &Vec<String>) -> u32 {
         let max: u32 = *nums_words
             .get(values.get(values.keys().max().unwrap()).unwrap())
             .unwrap();
-        println!(
-            "{},{} = {}\n{:?}\n{}",
-            min,
-            max,
-            min * 10 + max,
-            values,
-            line
-        );
         sum += min * 10 + max;
     }
     println!("Sum is {}", sum);
