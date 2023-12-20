@@ -4,7 +4,6 @@ use std::io::{BufRead, BufReader};
 use std::path::Path;
 
 fn main() {
-    // Consumes the iterator, returns an (Optional) String
     if let Ok(file) = File::open(Path::new("./src/input.txt")) {
         let reader = BufReader::new(&file);
         let lines: Vec<String> = reader.lines().collect::<Result<_, _>>().unwrap();
